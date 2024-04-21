@@ -1,5 +1,10 @@
 # stats-project
 EC124 Data set
+
+View(micro_world_139countries)
+attach(micro_world_139countries)
+my_data <- micro_world_139countries
+
 # Calculate how many people in each region reported to have a mobile money account 
 my_data$account_mob <- as.character(my_data$account_mob)
 ((sum(my_data$account_mob == "1" & my_data$regionwb == "South Asia", na.rm = TRUE))/((sum(my_data$account_mob == "1" & my_data$regionwb == "South Asia", na.rm = TRUE) + sum(my_data$account_mob == "0" & my_data$regionwb == "South Asia", na.rm = TRUE))) *100)

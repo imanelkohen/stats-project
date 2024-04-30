@@ -27,10 +27,6 @@ library(tidyverse)
 dat <- my_data %>%
   select(regionwb, account_mob)
 summary (dat)
-ggplot(dat) +
-  aes(x = regionwb, y = account_mob, color = regionwb) +
-  geom_jitter() +
-  theme(legend.position = "none")
 res_aov <- aov(account_mob ~ regionwb,
                data = dat)
 summary(res_aov)

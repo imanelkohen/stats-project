@@ -22,13 +22,11 @@ par(mar=c(5,12,4,1)+.1)
 barplot(my_matrix, beside = FALSE, names.arg = c("Europe & Central Asia", "Sub-Saharan Africa", "Middle East & North Africa", "Latin America & Caribbean", "High income", "East Asia & Pacific", "South Asia"), horiz = TRUE, las = 1, xlab = "Percentage of mobile money account holders (%)")
 title(ylab = "Region", line=11.5, cex.lab=1)
 
-# ANOVA on regions and mobile money account (KIV, am reviewing if there's any other test that's more suitable. But from this one, the hypothesis "Is the number of mobile money account owners different between regions?" is rejected)
-library(tidyverse)
-dat <- my_data %>%
-  select(regionwb, account_mob)
-summary (dat)
-res_aov <- aov(account_mob ~ regionwb,
-               data = dat)
-summary(res_aov)
-oneway.test(account_mob ~ regionwb, data = dat, var.equal = FALSE)
+# Chisquare test
+table <- table(regionwb, account_mob)
+table <- table[-1,]
+table
 
+test_2 <- chisq.test(table)
+test_2$expected
+test_2

@@ -103,7 +103,61 @@ par(mar = c(9.6, 5, 4, 4.1) +.1, lwd = 1)
 barplot(height = c(29.00614, 30.78123, 32.45879, 63.96177, 17.72652, 35.74564), names.arg = c('Too Far', 'Too expensive', 'Lack Documentation', 'Lack of Money', 'Use agent', 'No mobile phone'), las = 2, ylab = "Percentage", ylim = c(0,70), space = 0.1, cex.names = 0.9, main = "Why don't respondents have a mobile money account?", col = "pink")
 title(xlab = "Reason for no mobile money account", line=8.4, cex.lab=1)
 
+# Gender in relation to regions
+library(scales)
+keep_columns <- c("regionwb", "female")
+gender_data <- my_data[keep_columns]
+gender_data <- gender_data %>% filter(regionwb != "")
+levels(factor(gender_data$regionwb))
 
+mynamestheme <- theme(
+  plot.title = element_text(family = "Helvetica", face = "bold", size = (15)),
+  legend.title = element_text(colour = "black", face = "bold", family = "Helvetica"),
+  legend.text = element_text(colour = "steelblue4", family = "Helvetica"),
+  axis.title = element_text(family = "Helvetica", size = (10), colour = "steelblue4"),
+  axis.text = element_text(family = "Helvetica", colour = "black", size = (10))
+)
+
+ggp <- ggplot(gender_data) + 
+  mynamestheme +
+  geom_bar(position = "fill") + 
+  aes(x = regionwb, fill = factor(female)) + 
+  ggtitle("Proportion of genders in different regions") +
+  labs(x = "Region", y = "Proportion", fill = "Gender") +
+  scale_fill_discrete(labels = c("Female", "Male")) +
+  scale_x_discrete(labels = label_wrap(24))
+
+ggp + coord_flip()
+
+# Keep age and region
+my_data_2 <- data.frame(my_data$regionwb, my_data$age)
+view(my_data_2)
+my_data_2["age_group"] = cut(my_data_2$my_data.age, c(15, 24, 50, Inf), c("15-24", "25-50", ">50"), include.lowest=TRUE)
+
+# Age groups in relation to region
+keep_columns <- c("my_data.regionwb", "age_group")
+age_data <- my_data_2[keep_columns]
+age_data <- age_data %>% filter(my_data.regionwb != "")
+levels(factor(age_data$my_data.regionwb))
+
+mynamestheme <- theme(
+  plot.title = element_text(family = "Helvetica", face = "bold", size = (15)),
+  legend.title = element_text(colour = "black", face = "bold", family = "Helvetica"),
+  legend.text = element_text(colour = "steelblue4", family = "Helvetica"),
+  axis.title = element_text(family = "Helvetica", size = (10), colour = "steelblue4"),
+  axis.text = element_text(family = "Helvetica", colour = "black", size = (10))
+)
+
+ggp <- ggplot(age_data) + 
+  mynamestheme +
+  geom_bar(position = "fill") + 
+  aes(x = my_data.regionwb, fill = factor(age_group)) + 
+  ggtitle("Proportion of age groups in different regions") +
+  labs(x = "Region", y = "Proportion", fill = "Age") +
+  scale_fill_discrete(labels = c("Age 0-14", "Age 15-24", "Age 25-50", "Age 51+")) +
+  scale_x_discrete(labels = label_wrap(24))
+
+ggp + coord_flip()
 
 
 # Chisquare test

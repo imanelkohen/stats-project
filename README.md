@@ -129,12 +129,17 @@ ggp <- ggplot(gender_data) +
 
 ggp + coord_flip()
 
+
 # Keep age and region
 my_data_2 <- data.frame(my_data$regionwb, my_data$age)
-view(my_data_2)
+my_data_2$my_data.age <- as.numeric(as.character(my_data_2$my_data.age))
+my_data_2 <- my_data_2[my_data_2$my_data.age > 14,]
 my_data_2["age_group"] = cut(my_data_2$my_data.age, c(15, 24, 50, Inf), c("15-24", "25-50", ">50"), include.lowest=TRUE)
+view(my_data_2)
+
 
 # Age groups in relation to region
+library(scales) # to make axis labels nicer
 keep_columns <- c("my_data.regionwb", "age_group")
 age_data <- my_data_2[keep_columns]
 age_data <- age_data %>% filter(my_data.regionwb != "")
@@ -154,11 +159,10 @@ ggp <- ggplot(age_data) +
   aes(x = my_data.regionwb, fill = factor(age_group)) + 
   ggtitle("Proportion of age groups in different regions") +
   labs(x = "Region", y = "Proportion", fill = "Age") +
-  scale_fill_discrete(labels = c("Age 0-14", "Age 15-24", "Age 25-50", "Age 51+")) +
+  scale_fill_discrete(labels = c("Age 15-24", "Age 25-50", "Age 51+")) +
   scale_x_discrete(labels = label_wrap(24))
 
 ggp + coord_flip()
-
 
 # Chisquare test
 table <- table(regionwb, account_mob)

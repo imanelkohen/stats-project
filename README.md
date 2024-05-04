@@ -139,7 +139,6 @@ view(my_data_2)
 
 
 # Age groups in relation to region
-library(scales) # to make axis labels nicer
 keep_columns <- c("my_data.regionwb", "age_group")
 age_data <- my_data_2[keep_columns]
 age_data <- age_data %>% filter(my_data.regionwb != "")

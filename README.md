@@ -164,9 +164,17 @@ ggp <- ggplot(age_data) +
 
 ggp + coord_flip()
 
-# Chisquare test
+# Chisquare test for region
 table <- table(regionwb, account_mob)
 table <- table[-1,]
+table
+
+test_2 <- chisq.test(table)
+test_2$expected
+test_2
+
+# Chi-squared test for education level
+table <- table(educ, account_mob)
 table
 
 test_2 <- chisq.test(table)

@@ -179,3 +179,11 @@ table
 test_2 <- chisq.test(table)
 test_2$expected
 test_2
+
+# Chi-squared test for income level
+table <- table(inc_q, account_mob)
+table
+
+test_2 <- chisq.test(table)
+test_2$expected
+test_2

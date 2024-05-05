@@ -163,7 +163,7 @@ ggp <- ggplot(age_data) +
 
 ggp + coord_flip()
 
-# Chisquare test for region
+# Chi-squared test for region
 table <- table(regionwb, account_mob)
 table <- table[-1,]
 table

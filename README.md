@@ -6,8 +6,6 @@ install.packages("haven")
 library(haven)
 my_data <- read_dta("micro_world_139countries.dta")
 attach(micro_world_139countries)
-install.packages("dplyr")
-library(dplyr)
 
 
 # Calculate how many people in each region reported to have a mobile money account 

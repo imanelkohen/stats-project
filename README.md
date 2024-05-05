@@ -194,66 +194,6 @@ ggp <- ggplot(age_data) +
 
 ggp + coord_flip()
 
-# Gender in relation to regions
-library(scales)
-keep_columns <- c("regionwb", "female")
-gender_data <- my_data[keep_columns]
-gender_data <- gender_data %>% filter(regionwb != "")
-levels(factor(gender_data$regionwb))
-
-mynamestheme <- theme(
-  plot.title = element_text(family = "Helvetica", face = "bold", size = (15)),
-  legend.title = element_text(colour = "black", face = "bold", family = "Helvetica"),
-  legend.text = element_text(colour = "steelblue4", family = "Helvetica"),
-  axis.title = element_text(family = "Helvetica", size = (10), colour = "steelblue4"),
-  axis.text = element_text(family = "Helvetica", colour = "black", size = (10))
-)
-
-ggp <- ggplot(gender_data) + 
-  mynamestheme +
-  geom_bar(position = "fill") + 
-  aes(x = regionwb, fill = factor(female)) + 
-  ggtitle("Proportion of genders in different regions") +
-  labs(x = "Region", y = "Proportion", fill = "Gender") +
-  scale_fill_discrete(labels = c("Female", "Male")) +
-  scale_x_discrete(labels = label_wrap(24))
-
-ggp + coord_flip()
-
-
-# Keep age and region
-my_data_2 <- data.frame(my_data$regionwb, my_data$age)
-my_data_2$my_data.age <- as.numeric(as.character(my_data_2$my_data.age))
-my_data_2 <- my_data_2[my_data_2$my_data.age > 14,]
-my_data_2["age_group"] = cut(my_data_2$my_data.age, c(15, 24, 50, Inf), c("15-24", "25-50", ">50"), include.lowest=TRUE)
-view(my_data_2)
-
-
-# Age groups in relation to region
-keep_columns <- c("my_data.regionwb", "age_group")
-age_data <- my_data_2[keep_columns]
-age_data <- age_data %>% filter(my_data.regionwb != "")
-levels(factor(age_data$my_data.regionwb))
-
-mynamestheme <- theme(
-  plot.title = element_text(family = "Helvetica", face = "bold", size = (15)),
-  legend.title = element_text(colour = "black", face = "bold", family = "Helvetica"),
-  legend.text = element_text(colour = "steelblue4", family = "Helvetica"),
-  axis.title = element_text(family = "Helvetica", size = (10), colour = "steelblue4"),
-  axis.text = element_text(family = "Helvetica", colour = "black", size = (10))
-)
-
-ggp <- ggplot(age_data) + 
-  mynamestheme +
-  geom_bar(position = "fill") + 
-  aes(x = my_data.regionwb, fill = factor(age_group)) + 
-  ggtitle("Proportion of age groups in different regions") +
-  labs(x = "Region", y = "Proportion", fill = "Age") +
-  scale_fill_discrete(labels = c("Age 15-24", "Age 25-50", "Age 51+")) +
-  scale_x_discrete(labels = label_wrap(24))
-
-ggp + coord_flip()
-
 # Chi-squared test for region
 table <- table(regionwb, account_mob)
 table <- table[-1,]
@@ -262,6 +202,7 @@ table
 test_2 <- chisq.test(table)
 test_2$expected
 test_2
+test_2$p.value
 
 # Chi-squared test for genders
 table <- table(female, account_mob)
@@ -270,6 +211,7 @@ table
 test_2 <- chisq.test(table)
 test_2$expected
 test_2
+test_2$p.value
 
 # t-test for age and mobile account ownership
 test <- t.test(age ~ account_mob,
@@ -278,6 +220,7 @@ test <- t.test(age ~ account_mob,
                alternative = "greater"
 )
 test
+test$p.value
 
 # Chi-squared test for education level
 table <- table(educ, account_mob)
@@ -286,6 +229,7 @@ table
 test_2 <- chisq.test(table)
 test_2$expected
 test_2
+test_2$p.value
 
 # Chi-squared test for income level
 table <- table(inc_q, account_mob)
@@ -294,3 +238,4 @@ table
 test_2 <- chisq.test(table)
 test_2$expected
 test_2
+test_2$p.value

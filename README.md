@@ -206,6 +206,14 @@ test_2 <- chisq.test(table)
 test_2$expected
 test_2
 
+# t-test for age and mobile account ownership
+test <- t.test(age ~ account_mob,
+               data = my_data,
+               var.equal = FALSE,
+               alternative = "greater"
+)
+test
+
 # Chi-squared test for education level
 table <- table(educ, account_mob)
 table

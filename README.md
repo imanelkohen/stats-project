@@ -103,6 +103,32 @@ par(mar = c(9.6, 5, 4, 4.1) +.1, lwd = 1)
 barplot(height = c(29.00614, 30.78123, 32.45879, 63.96177, 17.72652, 35.74564), names.arg = c('Too Far', 'Too expensive', 'Lack Documentation', 'Lack of Money', 'Use agent', 'No mobile phone'), las = 2, ylab = "Percentage", ylim = c(0,70), space = 0.1, cex.names = 0.9, main = "Why don't respondents have a mobile money account?", col = "pink")
 title(xlab = "Reason for no mobile money account", line=8.4, cex.lab=1)
 
+# mobile account in relation to regions
+my_data <- my_data[my_data$account_mob >= 0, na.rm = TRUE]
+keep_columns <- c("regionwb", "account_mob")
+age_data <- my_data[keep_columns]
+age_data <- age_data %>% filter(regionwb != "")
+levels(factor(age_data$regionwb))
+
+mynamestheme <- theme(
+  plot.title = element_text(family = "Helvetica", face = "bold", size = (12)),
+  legend.title = element_text(colour = "black", face = "bold", family = "Helvetica"),
+  legend.text = element_text(colour = "steelblue4", family = "Helvetica"),
+  axis.title = element_text(family = "Helvetica", size = (10), colour = "steelblue4"),
+  axis.text = element_text(family = "Helvetica", colour = "black", size = (10))
+)
+
+ggp <- ggplot(age_data) + 
+  mynamestheme +
+  geom_bar(position = "fill") + 
+  aes(x = regionwb, fill = factor(account_mob)) + 
+  ggtitle("Proportion of mobile account ownership in different regions") +
+  labs(x = "Region", y = "Proportion", fill = "Account") +
+  scale_fill_discrete(labels = c("No", "Yes")) +
+  scale_x_discrete(labels = label_wrap(24))
+
+ggp + coord_flip()
+
 # Gender in relation to regions
 library(scales)
 keep_columns <- c("regionwb", "female")
@@ -166,6 +192,14 @@ ggp + coord_flip()
 # Chi-squared test for region
 table <- table(regionwb, account_mob)
 table <- table[-1,]
+table
+
+test_2 <- chisq.test(table)
+test_2$expected
+test_2
+
+# Chi-squared test for genders
+table <- table(female, account_mob)
 table
 
 test_2 <- chisq.test(table)

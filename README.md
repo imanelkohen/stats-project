@@ -167,7 +167,10 @@ legend(inset=c(0.01,-0.06), legend=c("Has a financial instiution account", "Has 
 title(main = "Account owners by level of education completed ", line = 2.4)
 title(xlab = "Level of education completed", line=2.5, cex.lab=1.1)
 
-# mobile account in relation to regions
+
+# Mobile account in relation to regions
+library(scales)
+library(tidyverse)
 my_data <- my_data[my_data$account_mob >= 0, na.rm = TRUE]
 keep_columns <- c("regionwb", "account_mob")
 age_data <- my_data[keep_columns]
@@ -194,47 +197,45 @@ ggp <- ggplot(age_data) +
 ggp + coord_flip()
 
 # Chi-squared test for region
-table <- table(regionwb, account_mob)
-table <- table[-1,]
-table
-
-test_2 <- chisq.test(table)
-test_2$expected
-test_2
-test_2$p.value
+table_1 <- table(regionwb, account_mob)
+table_1 <- table_1[-1,]
+table_1
+test_1 <- chisq.test(table_1)
+test_1$expected
+test_1
+test_1$p.value
 
 # Chi-squared test for genders
-table <- table(female, account_mob)
-table
+table_2 <- table(female, account_mob)
+table_2
 
-test_2 <- chisq.test(table)
+test_2 <- chisq.test(table_2)
 test_2$expected
 test_2
 test_2$p.value
 
-# t-test for age and mobile account ownership
-test <- t.test(age ~ account_mob,
+# t-test for age
+library(stats)
+test_3 <- t.test(age ~ account_mob,
                data = my_data,
                var.equal = FALSE,
                alternative = "greater"
 )
-test
-test$p.value
+test_3
+test_3$p.value
 
 # Chi-squared test for education level
-table <- table(educ, account_mob)
-table
-
-test_2 <- chisq.test(table)
-test_2$expected
-test_2
-test_2$p.value
+table_4 <- table(educ, account_mob)
+table_4
+test_4 <- chisq.test(table_4)
+test_4$expected
+test_4
+test_4$p.value
 
 # Chi-squared test for income level
-table <- table(inc_q, account_mob)
-table
-
-test_2 <- chisq.test(table)
-test_2$expected
-test_2
-test_2$p.value
+table_5 <- table(inc_q, account_mob)
+table_5
+test_5 <- chisq.test(table_5)
+test_5$expected
+test_5
+test_5$p.value

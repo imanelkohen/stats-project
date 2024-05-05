@@ -1,5 +1,4 @@
 # stats-project
-EC124 Data set
 
 # Import dataset and install necessary packages
 install.packages("haven")

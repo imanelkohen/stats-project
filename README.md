@@ -1,7 +1,6 @@
 # stats-project
 EC124 Data set
 
-
 # Import dataset and install necessary packages
 install.packages("haven")
 library(haven)
@@ -74,8 +73,6 @@ my_data$account_fin <- as.character(my_data$account_fin)
 (sum(my_data$account_mob == "1" & my_data$female == "2" & my_data$age %in% c("51":"99"), na.rm = TRUE))/(sum(my_data$account_mob %in% c("0":"1") & my_data$female == "2" & my_data$age %in% c("51":"99"), na.rm = TRUE)) *100
 
 heights <- c(43.18566, 25.11242, 50.70936, 30.74725, 62.38329, 25.53407, 71.86184, 33.52607, 72.98378, 12.77638, 79.14117, 17.5796)
-groups <- rep(1:6, each = 2)
-bars <- rep(c("Bar 1", "Bar 2"), times = 6)
 par(mar=c(4,5.5,7,2)+.1)
 barplot(matrix(heights, ncol = 6), beside = TRUE,col = c("pink","grey"), names.arg = c("Women", "Men", "Women", "Men", "Women", "Men"), ylab = "Percentage (%)", ylim = c(0,80), las = 1, space = c(0,0,0.8,0,0.8,0,0.8,0,0.8,0,0.8,0), lwd = 1)
 legend(3, 1, inset=c(0.01,-0.27), legend=c("Has a financial instiution account", "Has a mobile money account"), fill = c("pink","grey"), x = "topleft")
@@ -99,9 +96,79 @@ my_data$fin13_1f <- as.character(my_data$fin13_1f)
 (sum(my_data$fin13_1e== "1", na.rm = TRUE))/(sum(my_data$fin13_1e %in% c("1":"4"), na.rm = TRUE)) *100
 (sum(my_data$fin13_1f== "1", na.rm = TRUE))/(sum(my_data$fin13_1f %in% c("1":"4"), na.rm = TRUE)) *100
 
-par(mar = c(9.6, 5, 4, 4.1) +.1, lwd = 1)
+par(mar = c(9.6, 5, 4, 3.5) +.1, lwd = 1)
 barplot(height = c(29.00614, 30.78123, 32.45879, 63.96177, 17.72652, 35.74564), names.arg = c('Too Far', 'Too expensive', 'Lack Documentation', 'Lack of Money', 'Use agent', 'No mobile phone'), las = 2, ylab = "Percentage", ylim = c(0,70), space = 0.1, cex.names = 0.9, main = "Why don't respondents have a mobile money account?", col = "pink")
 title(xlab = "Reason for no mobile money account", line=8.4, cex.lab=1)
+
+# Create income quartile barplot 
+my_data$inc_q <- as.character(my_data$inc_q)
+
+# Percentage of people in the poorest 20% who own a financial institution account 
+(sum(my_data$inc_q == "1" & my_data$account_fin == "1", na.rm = TRUE))/(sum(my_data$inc_q == "1" & my_data$account %in% c("0":"1"), na.rm = TRUE)) *100
+
+# Percentage of people in the poorest 20% who own a mobile money account 
+(sum(my_data$inc_q == "1" & my_data$account_mob == "1", na.rm = TRUE))/(sum(my_data$inc_q == "1" & my_data$account %in% c("0":"1"), na.rm = TRUE)) *100
+
+# Percentage of people in the second 20% who own a financial institution account 
+(sum(my_data$inc_q == "2" & my_data$account_fin == "1", na.rm = TRUE))/(sum(my_data$inc_q == "2" & my_data$account %in% c("0":"1"), na.rm = TRUE)) *100
+
+# Percentage of people in the second 20% who own a mobile money account 
+(sum(my_data$inc_q == "2" & my_data$account_mob == "1", na.rm = TRUE))/(sum(my_data$inc_q == "2" & my_data$account %in% c("0":"1"), na.rm = TRUE)) *100
+
+# Percentage of people in the middle 20% who own a financial institution account 
+(sum(my_data$inc_q == "3" & my_data$account_fin == "1", na.rm = TRUE))/(sum(my_data$inc_q == "3" & my_data$account %in% c("0":"1"), na.rm = TRUE)) *100
+
+# Percentage of people in the middle 20% who own a mobile money account 
+(sum(my_data$inc_q == "3" & my_data$account_mob == "1", na.rm = TRUE))/(sum(my_data$inc_q == "3" & my_data$account %in% c("0":"1"), na.rm = TRUE)) *100
+
+# Percentage of people in the fourth 20% who own a financial institution account 
+(sum(my_data$inc_q == "4" & my_data$account_fin == "1", na.rm = TRUE))/(sum(my_data$inc_q == "4" & my_data$account %in% c("0":"1"), na.rm = TRUE)) *100
+
+# Percentage of people in the fourth 20% who own a mobile money account 
+(sum(my_data$inc_q == "4" & my_data$account_mob == "1", na.rm = TRUE))/(sum(my_data$inc_q == "4" & my_data$account %in% c("0":"1"), na.rm = TRUE)) *100
+
+# Percentage of people in the richest 20% who own a financial institution account 
+(sum(my_data$inc_q == "5" & my_data$account_fin == "1", na.rm = TRUE))/(sum(my_data$inc_q == "5" & my_data$account %in% c("0":"1"), na.rm = TRUE)) *100
+
+# Percentage of people in the richest 20% who own a mobile money institution account 
+(sum(my_data$inc_q == "5" & my_data$account_mob == "1", na.rm = TRUE))/(sum(my_data$inc_q == "5" & my_data$account %in% c("0":"1"), na.rm = TRUE)) *100
+
+heights2 <- c(55.11497,9.728943, 60.81592, 11.43489, 63.84593, 13.31228, 68.0075, 15.94451, 74.68399, 21.00479)
+par(mar=c(4,5.5,5,3)+.1)
+par(xpd = TRUE)
+barplot(matrix(heights2, ncol = 5), beside = TRUE,col = c("pink","grey"), names.arg = c("Poorest 20%", "Second 20%", "Middle 20%", "Fourth 20%", "Richest 20%"), ylab = "Percentage (%)", ylim = c(0,80), las = 1, lwd = 1, space = c(0,0,0.8,0,0.8,0,0.8,0,0.8,0))
+legend(inset=c(0.01,-0.06), legend=c("Has a financial instiution account", "Has a mobile money account"), fill = c("pink","grey"), x = "topleft", cex = 0.9, box.lty = 0)
+title(main = "Account owners by income quintile ", line = 2.4)
+title(xlab = "Income Quintile", line=2.5, cex.lab=1.1)
+
+# Create education level barplot 
+my_data$educ <- as.character(my_data$educ)
+
+# Percentage of people who completed primary school or less who own a financial institution account 
+(sum(my_data$educ == "1" & my_data$account_fin == "1", na.rm = TRUE))/(sum(my_data$educ == "1" & my_data$account %in% c("0":"1"), na.rm = TRUE)) *100
+
+# Percentage of people who completed primary school or less who own a mobile money account 
+(sum(my_data$educ == "1" & my_data$account_mob == "1", na.rm = TRUE))/(sum(my_data$educ == "1" & my_data$account %in% c("0":"1"), na.rm = TRUE)) *100
+
+# Percentage of people who completed secondary school who own a financial institution account 
+(sum(my_data$educ == "2" & my_data$account_fin == "1", na.rm = TRUE))/(sum(my_data$educ == "2" & my_data$account %in% c("0":"1"), na.rm = TRUE)) *100
+
+# Percentage of people who completed secondary school who own a mobile money account 
+(sum(my_data$educ == "2" & my_data$account_mob == "1", na.rm = TRUE))/(sum(my_data$educ == "2" & my_data$account %in% c("0":"1"), na.rm = TRUE)) *100
+
+# Percentage of people who completed tertiary education or more who own a financial institution account 
+(sum(my_data$educ == "3" & my_data$account_fin == "1", na.rm = TRUE))/(sum(my_data$educ == "3" & my_data$account %in% c("0":"1"), na.rm = TRUE)) *100
+
+# Percentage of people who completed tertiary education or more who own a mobile money account 
+(sum(my_data$educ == "3" & my_data$account_mob == "1", na.rm = TRUE))/(sum(my_data$educ == "3" & my_data$account %in% c("0":"1"), na.rm = TRUE)) *100
+
+heights3 <- c(37.4987,12.1644, 68.84297, 17.38374, 92.26581, 12.86439)
+par(mar=c(4,8,5,4)+.2)
+par(xpd = TRUE)
+barplot(matrix(heights3, ncol = 3), beside = TRUE,col = c("pink","grey"), names.arg = c("Primary school or less", "Secondary school", "Tertiary education or more"), ylab = "Percentage (%)", ylim = c(0,100), las = 1, lwd = 1, space = c(0,0,0.4,0,0.4,0))
+legend(inset=c(0.01,-0.06), legend=c("Has a financial instiution account", "Has a mobile money account"), fill = c("pink","grey"), x = "topleft", cex = 0.9, box.lty = 0)
+title(main = "Account owners by level of education completed ", line = 2.4)
+title(xlab = "Level of education completed", line=2.5, cex.lab=1.1)
 
 # mobile account in relation to regions
 my_data <- my_data[my_data$account_mob >= 0, na.rm = TRUE]

@@ -169,6 +169,8 @@ title(xlab = "Level of education completed", line=2.5, cex.lab=1.1)
 
 
 # Mobile account in relation to regions
+install.packages(scales)
+install.packages(tidyverse)
 library(scales)
 library(tidyverse)
 my_data <- my_data[my_data$account_mob >= 0, na.rm = TRUE]

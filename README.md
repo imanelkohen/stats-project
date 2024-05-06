@@ -2,15 +2,11 @@
 
 # Import dataset and install necessary packages
 install.packages("haven")
-install.packages("scales")
-install.packages("tidyverse")
-install.packages("stats")
 library(haven)
-library(scales)
-library(tidyverse)
-library(stats)
 my_data <- read_dta("micro_world_139countries.dta")
 attach(micro_world_139countries)
+install.packages("dplyr")
+library(dplyr)
 
 
 # Calculate how many people in each region reported to have a mobile money account 
@@ -26,11 +22,14 @@ my_data$account_mob <- as.character(my_data$account_mob)
 # Create barplot
 data2 <- c(18.2285, 36.50935, 7.184521, 20.1095, 20.4, 28.59346, 10.663)
 my_matrix <- matrix(c(18.2285,81.7715,36.50935,63.49065,7.184521,92.815479,20.1095,79.8905,20.4,79.6,28.59346,71.40654,10.663,89.337), nrow=2)
-par(mar=c(5,12.6,4,6)+.4)
-barplot(my_matrix, beside = FALSE, names.arg = c("Europe & Central Asia", "Sub-Saharan Africa", "Middle East & North Africa", "Latin America & Caribbean", "High income", "East Asia & Pacific", "South Asia"), horiz = TRUE, las = 1, xlab = "Percentage of mobile money account holders (%)",  col = c("pink", "grey"), main = "Does the respondent own a mobile money account?")
-title(ylab = "Region", line=11.7, cex.lab=1)
+par(mar=c(4.5,15.9,2.1,6))
+par(family = "mono", font = 1)
+barplot(my_matrix, beside = FALSE, names.arg = c("Europe & Central Asia", "Sub-Saharan Africa", "Middle East & North Africa", "Latin America & Caribbean", "High income", "East Asia & Pacific", "South Asia"), horiz = TRUE, las = 1, xlab = "Percentage of mobile money account holders (%)",  col = c("pink", "grey"))
+title(main = "Graph 1: Does the respondent own a mobile money account?", line = 0.35)
+title(ylab = "Region", line=14.5, cex.lab=1)
+title(ylab = "Region", line=14.5, cex.lab=1)
 par(xpd = TRUE)
-legend(2, 4, inset=c(-0.4,0), legend=c("Yes", "No"), fill = c("pink","grey"), x = "topright")
+legend(inset=c(-0.325,0), legend=c("Yes", "No"), fill = c("pink","grey"), x = "topright", box.lwd = 0, cex = 0.8)
 
 
 # Age group - gender barplot 
@@ -76,11 +75,12 @@ my_data$account_fin <- as.character(my_data$account_fin)
 (sum(my_data$account_mob == "1" & my_data$female == "2" & my_data$age %in% c("51":"99"), na.rm = TRUE))/(sum(my_data$account_mob %in% c("0":"1") & my_data$female == "2" & my_data$age %in% c("51":"99"), na.rm = TRUE)) *100
 
 heights <- c(43.18566, 25.11242, 50.70936, 30.74725, 62.38329, 25.53407, 71.86184, 33.52607, 72.98378, 12.77638, 79.14117, 17.5796)
-par(mar=c(4,5.5,7,2)+.1)
-barplot(matrix(heights, ncol = 6), beside = TRUE,col = c("pink","grey"), names.arg = c("Women", "Men", "Women", "Men", "Women", "Men"), ylab = "Percentage (%)", ylim = c(0,80), las = 1, space = c(0,0,0.8,0,0.8,0,0.8,0,0.8,0,0.8,0), lwd = 1)
-legend(3, 1, inset=c(0.01,-0.27), legend=c("Has a financial instiution account", "Has a mobile money account"), fill = c("pink","grey"), x = "topleft")
-title(xlab = "Ages 15-24            Ages 25-50               Ages 51+", line=2.5, cex.lab=1.1)
-title(main = "Respondents with an account", line = 4.5)
+par(mar=c(4,5.5,7,2)+.9)
+par(family = "mono", font = 1)
+barplot(matrix(heights, ncol = 6), beside = TRUE,col = c("pink","grey"), names.arg = c("Women", "Men", "Women", "Men", "Women", "Men"), ylab = "Percentage (%)", ylim = c(0,80), las = 1, space = c(0,0,0.4,0,0.8,0,0.4,0,0.8,0,0.4,0), lwd = 1)
+legend(3, 1, inset=c(0.0,-0.22), legend=c("Has a financial instiution account", "Has a mobile money account"), fill = c("pink","grey"), x = "topleft", box.lty = 0, cex = 0.9)
+title(xlab = "Ages 15-24                 Ages 25-50               Ages 51+", line=2.5, cex.lab=1.1)
+title(main = "Graph 2: Respondents with an account", line = 4.5, cex.main=1.3)
 
 
 
@@ -139,9 +139,10 @@ my_data$inc_q <- as.character(my_data$inc_q)
 heights2 <- c(55.11497,9.728943, 60.81592, 11.43489, 63.84593, 13.31228, 68.0075, 15.94451, 74.68399, 21.00479)
 par(mar=c(4,5.5,5,3)+.1)
 par(xpd = TRUE)
+par(family = "mono", font = 1)
 barplot(matrix(heights2, ncol = 5), beside = TRUE,col = c("pink","grey"), names.arg = c("Poorest 20%", "Second 20%", "Middle 20%", "Fourth 20%", "Richest 20%"), ylab = "Percentage (%)", ylim = c(0,80), las = 1, lwd = 1, space = c(0,0,0.8,0,0.8,0,0.8,0,0.8,0))
 legend(inset=c(0.01,-0.06), legend=c("Has a financial instiution account", "Has a mobile money account"), fill = c("pink","grey"), x = "topleft", cex = 0.9, box.lty = 0)
-title(main = "Account owners by income quintile ", line = 2.4)
+title(main = "Graph 4: Account owners by income quintile ", line = 2.4)
 title(xlab = "Income Quintile", line=2.5, cex.lab=1.1)
 
 # Create education level barplot 
@@ -166,11 +167,12 @@ my_data$educ <- as.character(my_data$educ)
 (sum(my_data$educ == "3" & my_data$account_mob == "1", na.rm = TRUE))/(sum(my_data$educ == "3" & my_data$account %in% c("0":"1"), na.rm = TRUE)) *100
 
 heights3 <- c(37.4987,12.1644, 68.84297, 17.38374, 92.26581, 12.86439)
-par(mar=c(4,8,5,4)+.2)
+par(mar=c(4,5,5,2.4))
 par(xpd = TRUE)
-barplot(matrix(heights3, ncol = 3), beside = TRUE,col = c("pink","grey"), names.arg = c("Primary school or less", "Secondary school", "Tertiary education or more"), ylab = "Percentage (%)", ylim = c(0,100), las = 1, lwd = 1, space = c(0,0,0.4,0,0.4,0))
-legend(inset=c(0.01,-0.06), legend=c("Has a financial instiution account", "Has a mobile money account"), fill = c("pink","grey"), x = "topleft", cex = 0.9, box.lty = 0)
-title(main = "Account owners by level of education completed ", line = 2.4)
+par(family = "mono", font = 1)
+barplot(matrix(heights3, ncol = 3), beside = TRUE,col = c("pink","grey"), names.arg = c("Primary school or less", "Secondary school", "Tertiary education or more"), ylab = "Percentage (%)", ylim = c(0,100), las = 1, lwd = 2, space = c(0,0,0.4,0,0.4,0))
+legend(inset=c(0.0045,-0.08), legend=c("Has a financial instiution account", "Has a mobile money account"), fill = c("pink","grey"), x = "topleft", cex = 0.88, box.lty = 0)
+title(main = "Graph 3: Account owners by level of education completed ", line = 2.4, cex.main =1.3)
 title(xlab = "Level of education completed", line=2.5, cex.lab=1.1)
 
 

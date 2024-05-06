@@ -2,7 +2,13 @@
 
 # Import dataset and install necessary packages
 install.packages("haven")
+install.packages("scales")
+install.packages("tidyverse")
+install.packages("stats")
 library(haven)
+library(scales)
+library(tidyverse)
+library(stats)
 my_data <- read_dta("micro_world_139countries.dta")
 attach(micro_world_139countries)
 
@@ -169,10 +175,6 @@ title(xlab = "Level of education completed", line=2.5, cex.lab=1.1)
 
 
 # Mobile account in relation to regions
-install.packages("scales")
-install.packages("tidyverse")
-library(scales)
-library(tidyverse)
 my_data <- my_data[my_data$account_mob >= 0, na.rm = TRUE]
 keep_columns <- c("regionwb", "account_mob")
 age_data <- my_data[keep_columns]
@@ -217,7 +219,6 @@ test_2
 test_2$p.value
 
 # t-test for age
-library(stats)
 test_3 <- t.test(age ~ account_mob,
                data = my_data,
                var.equal = FALSE,

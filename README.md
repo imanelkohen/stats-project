@@ -184,11 +184,11 @@ region_data <- region_data %>% filter(regionwb != "")
 levels(factor(region_data$regionwb))
 
 mynamestheme <- theme(
-  plot.title = element_text(family = "Mono", face = "bold", size = (12)),
-  legend.title = element_text(colour = "black", face = "bold", family = "Mono"),
-  legend.text = element_text(colour = "steelblue4", family = "Mono"),
-  axis.title = element_text(family = "Mono", size = (10), colour = "steelblue4"),
-  axis.text = element_text(family = "Mono", colour = "black", size = (10))
+  plot.title = element_text(family = "Helvetica", face = "bold", size = (12)),
+  legend.title = element_text(colour = "black", face = "bold", family = "Helvetica"),
+  legend.text = element_text(colour = "steelblue4", family = "Helvetica"),
+  axis.title = element_text(family = "Helvetica", size = (10), colour = "steelblue4"),
+  axis.text = element_text(family = "Helvetica", colour = "black", size = (10))
 )
 
 ggp <- ggplot(region_data) + 

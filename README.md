@@ -174,22 +174,24 @@ title(main = "Account owners by level of education completed ", line = 2.4)
 title(xlab = "Level of education completed", line=2.5, cex.lab=1.1)
 
 
-# Mobile account in relation to regions
+# mobile account in relation to regions
+library(scales)
+library(tidyverse)
 my_data <- my_data[my_data$account_mob >= 0, na.rm = TRUE]
 keep_columns <- c("regionwb", "account_mob")
-age_data <- my_data[keep_columns]
-age_data <- age_data %>% filter(regionwb != "")
-levels(factor(age_data$regionwb))
+region_data <- my_data[keep_columns]
+region_data <- region_data %>% filter(regionwb != "")
+levels(factor(region_data$regionwb))
 
 mynamestheme <- theme(
-  plot.title = element_text(family = "Helvetica", face = "bold", size = (12)),
-  legend.title = element_text(colour = "black", face = "bold", family = "Helvetica"),
-  legend.text = element_text(colour = "steelblue4", family = "Helvetica"),
-  axis.title = element_text(family = "Helvetica", size = (10), colour = "steelblue4"),
-  axis.text = element_text(family = "Helvetica", colour = "black", size = (10))
+  plot.title = element_text(family = "Mono", face = "bold", size = (12)),
+  legend.title = element_text(colour = "black", face = "bold", family = "Mono"),
+  legend.text = element_text(colour = "steelblue4", family = "Mono"),
+  axis.title = element_text(family = "Mono", size = (10), colour = "steelblue4"),
+  axis.text = element_text(family = "Mono", colour = "black", size = (10))
 )
 
-ggp <- ggplot(age_data) + 
+ggp <- ggplot(region_data) + 
   mynamestheme +
   geom_bar(position = "fill") + 
   aes(x = regionwb, fill = factor(account_mob)) + 
@@ -199,6 +201,7 @@ ggp <- ggplot(age_data) +
   scale_x_discrete(labels = label_wrap(24))
 
 ggp + coord_flip()
+
 
 # Chi-squared test for region
 table_1 <- table(regionwb, account_mob)

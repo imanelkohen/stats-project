@@ -2,11 +2,16 @@
 
 # Import dataset and install necessary packages
 install.packages("haven")
+install.packages("dplyr")
+install.packages("stats")
+install.packages("tidyr")
 library(haven)
+library(dplyr)
+library(stats)
+library(tidyr)
 my_data <- read_dta("micro_world_139countries.dta")
 attach(micro_world_139countries)
-install.packages("dplyr")
-library(dplyr)
+
 
 
 # Calculate how many people in each region reported to have a mobile money account 

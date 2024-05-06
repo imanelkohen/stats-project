@@ -174,35 +174,6 @@ title(main = "Account owners by level of education completed ", line = 2.4)
 title(xlab = "Level of education completed", line=2.5, cex.lab=1.1)
 
 
-# mobile account in relation to regions
-library(scales)
-library(tidyverse)
-my_data <- my_data[my_data$account_mob >= 0, na.rm = TRUE]
-keep_columns <- c("regionwb", "account_mob")
-region_data <- my_data[keep_columns]
-region_data <- region_data %>% filter(regionwb != "")
-levels(factor(region_data$regionwb))
-
-mynamestheme <- theme(
-  plot.title = element_text(family = "Helvetica", face = "bold", size = (12)),
-  legend.title = element_text(colour = "black", face = "bold", family = "Helvetica"),
-  legend.text = element_text(colour = "steelblue4", family = "Helvetica"),
-  axis.title = element_text(family = "Helvetica", size = (10), colour = "steelblue4"),
-  axis.text = element_text(family = "Helvetica", colour = "black", size = (10))
-)
-
-ggp <- ggplot(region_data) + 
-  mynamestheme +
-  geom_bar(position = "fill") + 
-  aes(x = regionwb, fill = factor(account_mob)) + 
-  ggtitle("Proportion of mobile account ownership in different regions") +
-  labs(x = "Region", y = "Proportion", fill = "Account") +
-  scale_fill_discrete(labels = c("No", "Yes")) +
-  scale_x_discrete(labels = label_wrap(24))
-
-ggp + coord_flip()
-
-
 # Chi-squared test for region
 table_1 <- table(regionwb, account_mob)
 table_1 <- table_1[-1,]
